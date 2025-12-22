@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lirik Sekarang hingga nanti kita tua </title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #001219;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+        }
+
+        #container {
+            position: relative;
+        }
+
+        #mulai {
+            padding: 12px 30px;
+            font-size: 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            color: aqua;
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid aqua;
+        }
+
+        button {
+            color: aquamarine;
+            position: relative;
+            display: inline-block;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 1.6em;
+            transition: opacity 1s ease-in;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #lirik {
+            font-size: 42px;
+            color: cyan;
+            text-shadow: 0 0 10px white, 0 0 20px white, 0 0 40px white;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            position: relative;
+            z-index: 10;
+            font-family: "Kalam", cursive;
+            font-weight: 400;
+            font-style: italic;
+
+        }
+
+        #lirik.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #lirik.hidden {
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 1s ease-in, transform 1.5s ease-in-out;
+        }
+
+        #lirik-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #lirik-wrapper {
+            position: relative;
+            display: inline-block;
+            height: auto;
+        }
+
+        #particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0%;
+            left: 0%;
+            pointer-events: none;
+            overflow: visible;
+            z-index: 22;
+        }
+
+        #particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            overflow: visible;
+            z-index: 22;
+        }
+
+   .star {
+  width: 18px;
+  height: 18px;
+  background: white;
+  clip-path: polygon(
+     50% 0%,
+     61% 35%,
+     98% 35%,
+     68% 57%,
+     79% 91%,
+     50% 70%,
+     21% 91%,
+     32% 57%,
+     2% 35%,
+     39% 35%
+  );
+  position: absolute;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 6px white);
+  animation: twinkle 1.2s ease-out forwards;
+}
+
+
+    @keyframes twinkle {
+       0% { opacity: 0; transform: scale(0.3); }
+            50% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.3); }
+    }
+
+    .confetti {
+        position: fixed;
+        width: 10px;
+        height: 16px;
+        background: red;
+        top: -20px;
+        z-index: 99;
+        pointer-events: none;
+        opacity: .9;
+        animation: fall 2.5s cubic-bezier(.2,.6,.3,1) forwards;
+    }
+
+    @keyframes fall {
+        0% {
+            transform: translate(0, 0) rotate(0deg);
+            opacity: 1;
+        }
+        100% {
+            transform: translate(var(--x), var(--y)) rotate(720deg);
+            opacity: 0;
+        }
+    }
+
+    .bumi {
+    position: absolute;
+    bottom: -40px;
+    left: 0%;
+    transform: translateX(-50%);
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity .6s ease;
+    
+ 
+    background: radial-gradient(circle at 45% 40%, 
+        #4cd2ff 0%,      
+        #1fa0e0 40%,     
+        #0c5684 68%,     
+        #001a2a 100%    
+    );
+
+   
+    box-shadow:
+        inset -8px -8px 10px rgba(0,0,0,.4),  
+        0 0 20px 8px rgba(0,200,255,.25);     
+    animation: planetBreath 6s ease-in-out infinite;
+    z-index: 5;
+    perspective: 600px;
+}
+.bumi.show, .bulan.show {
+    opacity: 1;
+}
+
+.bumi::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+
+    background:
+        radial-gradient(circle at 55% 45%, rgba(255,255,255,.55) 0%, transparent 60%),
+        radial-gradient(circle at 35% 70%, rgba(255,255,255,.35) 0%, transparent 65%);
+
+    opacity: .55;
+    filter: blur(5px);
+    pointer-events: none;
+}
+
+.bumi::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+
+    background:
+        radial-gradient(circle at 60% 35%, #7cd674 0%, #3c9b4a 42%, transparent 68%),
+        radial-gradient(circle at 32% 63%, #7cd674 0%, #3c9b4a 42%, transparent 68%);
+
+    opacity: .85;
+    filter: blur(1px);
+    pointer-events: none;
+}
+
+
+        @keyframes planetBreath {
+        0% { transform: translate(-50%, 0); }
+        50% { transform: translate(-50%, -10px); }
+        100% { transform: translate(-50%, 0); }
+        }
+
+    .bumi .ring {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 50px;
+        height: 14px;
+        border-radius: 50%;
+        border: 2px solid rgba(200,220,255,0.55);
+        transform: translate(-50%, -50%) rotateX(65deg);
+        transform-style: preserve-3d;
+        filter: blur(.3px);
+        animation: ringSpin 6s linear infinite;
+        z-index: 2;
+    }
+
+    .bumi .ring::before {
+        content: "";
+        position: absolute;
+        inset: -2px;
+        border-radius: 50%;
+        border-top: 2px solid rgba(255,255,255,.85);
+        border-bottom: 2px solid rgba(180,200,255,0.25);
+    }
+
+    .bumi .ring::after {
+        content: "";
+        position: absolute;
+        inset: -4px;
+        border-radius: 50%;
+        border: 2px solid rgba(120,150,200,.18);
+        filter: blur(1px);
+    }
+
+    @keyframes ringSpin {
+        0% {
+            transform: translate(-50%, -50%) rotateX(65deg) rotateY(0deg) ;
+        }
+        100% {
+            transform: translate(-50%, -50%) rotateX(65deg) rotateY(360deg);
+        }
+    }
+
+            .bulan {
+            position: absolute;
+            top: -23px;
+            left: 100%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #fff, #bfc6e0 60%, #8990af 100% );
+            box-shadow: 0 0 25px 8px rgba(180, 200, 255, 0.6);
+            animation: moonFlat 4s ease-in-out infinite;
+            z-index: 3;
+            opacity: 0;
+            transition: opacity .6s ease;
+        }
+
+              @keyframes moonFlat {
+        0%, 100% { transform: translate(-50%, 0); }
+        50% { transform: translate(-50%, -10px);}
+    }
+    
+
+    </style>
+
+</head>
+
+<body> <button id="mulai">▶ HERE</button>
+    <audio id="lagu" src="lirik2.mp3"></audio>
+
+    <div id="lirik-wrapper">
+    <div id="lirik"></div>
+    <div class="bulan"></div>
+    <div id="particles"></div>
+    <div class="bumi">
+        <div class="ring"></div>
+    </div>
+    </div>
+
+    <script>
+
+        const barisLirik = [
+            "Bahagia ku bisa bertemu kamu......",
+            "Kau menata kembalii haatiikuu.......",
+            "Banyak orang yang datang padakuu....",
+            "Namun, belum ada yang sepertimu....",
+            "Kauberi rasa nyaman diriku....",
+            "Sungguh, ku suka bersamamu......",
+            " Ingin ku menemanimu s'lamanya....."
+        ];
+
+        const jeda = [3910, 4550, 4450, 3900, 3900, 3930, 5000];
+
+        const kecepatanHuruf = [390, 430, 350, 385, 305, 345, 70];
+
+        const tombol = document.getElementById("mulai");
+        const lagu = document.getElementById("lagu");
+        let index = 0
+        const elemen = document.getElementById("lirik");
+
+        tombol.addEventListener("click", () => {
+            tombol.style.display = "none";
+            spawnconfetti();
+            lagu.play();
+            tampilBaris();
+        });
+
+        function tampilBaris() {
+            if (index >= barisLirik.length) return;
+            lirik.classList.remove("visible");
+            lirik.classList.add("hidden");
+            document.querySelector(".bumi").classList.remove("show");
+            document.querySelector(".bulan").classList.remove("show");
+
+            void lirik.offsetWidth;
+
+            setTimeout(() => {
+                lirik.textContent = barisLirik[index]
+
+                lirik.classList.remove("hidden");
+                lirik.classList.add("visible");
+                document.querySelector(".bumi").classList.add("show");
+                document.querySelector(".bulan").classList.add("show");
+
+
+                let next = index;
+                index++;
+
+                setTimeout(tampilBaris, jeda[next] || 1000);
+            }, 400);
+        }
+
+        const particleBox = document.getElementById("particles");
+
+        function buatBintang() {
+            if (lirik.textContent.trim() === "") return;
+            const b = document.createElement("div")
+            b.classList.add("star");
+
+            const rect = lirik.getBoundingClientRect();
+            const width = rect.width;
+            const height = rect.height;
+
+            const x = Math.random() * width;
+            const y = Math.random() * height;
+
+            const size = 4 + Math.random() * 10;
+            b.style.width = size + "px";
+            b.style.height = size + "px";
+
+            b.style.left = x + "px";
+            b.style.top = y + "px";
+
+            particleBox.appendChild(b);
+
+            setTimeout(() => b.remove(), 1650);
+        }
+
+        setInterval(buatBintang, 270);
+
+        function spawnconfetti() {
+            const colors = [
+            "#9400D3",
+            "#3CB371",
+            "#00FFFF",
+            "#FFFF00"
+            ];
+
+        for (let i = 0; i < 80; i++) {
+            const c = document.createElement("div");
+            c.classList.add("confetti");
+
+            const fromLeft = Math.random() < 0.5;
+
+            c.style.left = fromLeft ? "-20px" : "100vw";
+            c.style.top = 40 + Math.random() * 20 + "vh";
+
+            const x = fromLeft ? 
+            100 + Math.random() * 40 + "vw" : 
+            -100 - Math.random() * 40 + "vw" ; 
+
+            const y = -40 + Math.random() * 80 + "vh";
+
+            c.style.setProperty("--x", x);
+            c.style.setProperty("--y", y);
+
+            
+             c.style.background = colors[Math.floor(Math.random() * colors.length)];
+             c.style.width = 6 + Math.random() * 6 + "px";
+             c.style.height = 10 + Math.random() * 10 + "px";
+             c.style.animationDuration = 2 + Math.random() * 1.8 + "s";
+            
+
+            document.body.appendChild(c);
+
+            setTimeout(() => c.remove(), 5000)
+
+        }
+        }
+    </script>
+</body>
+
+</html>
