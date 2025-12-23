@@ -87,18 +87,7 @@
             height: auto;
         }
 
-        #particles {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0%;
-            left: 0%;
-            pointer-events: none;
-            overflow: visible;
-            z-index: 22;
-        }
-
-        #particles {
+            #particless {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -109,9 +98,21 @@
             z-index: 22;
         }
 
+
+        #particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            overflow: visible;
+            z-index: 22;
+        }
+
    .star {
-  width: 18px;
-  height: 18px;
+  width: 25px;
+  height: 22px;
   background: white;
   clip-path: polygon(
      50% 0%,
@@ -166,8 +167,8 @@
     bottom: -40px;
     left: 0%;
     transform: translateX(-50%);
-    width: 22px;
-    height: 22px;
+    width: 35px;
+    height: 28px;
     border-radius: 50%;
     opacity: 0;
     transition: opacity .6s ease;
@@ -188,7 +189,7 @@
     z-index: 5;
     perspective: 600px;
 }
-.bumi.show, .bulan.show {
+.bumi.show, .bulan.show, .awan.show {
     opacity: 1;
 }
 
@@ -233,8 +234,8 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 50px;
-        height: 14px;
+        width: 65px;
+        height: 20px;
         border-radius: 50%;
         border: 2px solid rgba(200,220,255,0.55);
         transform: translate(-50%, -50%) rotateX(65deg);
@@ -276,8 +277,8 @@
             top: -23px;
             left: 100%;
             transform: translateX(-50%);
-            width: 20px;
-            height: 20px;
+            width: 30px;
+            height: 25px;
             border-radius: 50%;
             background: radial-gradient(circle at 30% 30%, #fff, #bfc6e0 60%, #8990af 100% );
             box-shadow: 0 0 25px 8px rgba(180, 200, 255, 0.6);
@@ -291,8 +292,92 @@
         0%, 100% { transform: translate(-50%, 0); }
         50% { transform: translate(-50%, -10px);}
     }
-    
 
+     .bintang {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background: white;
+            clip-path: polygon(
+                50% 0%,
+                61% 35%,
+                98% 35%,
+                68% 57%,
+                79% 91%,
+                50% 70%,
+                21% 91%,
+                32% 57%,
+                2% 35%,
+                39% 35%
+            );
+            position: absolute;
+            opacity: 0.9;
+            filter: drop-shadow(0 0 6px white);
+            z-index: 1;
+        animation: tang 1.5s ease-out forwards;
+    }
+
+        @keyframes tang {
+       0% { opacity: 0; transform: scale(0.3); }
+            50% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.3); }
+    }
+    
+    .awan {
+    position: absolute;
+    top: -20px;
+    left: -300px;
+    width: 70px;
+    height: 25px;
+        background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,.95),
+        rgba(240,250,255,.85)
+    );
+    border-radius: 80px;
+        box-shadow:
+        0 0 35px rgba(200,255,255,.55),
+        inset -10px -10px 25px rgba(220,240,255,.45);
+    filter: blur(1px) drop-shadow(0 0 25px rgba(200,255,255,.6));
+    animation: wansGeser 15s linear infinite,
+               wansNaikTurun 5s ease-in-out infinite;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity .6s ease;
+    pointer-events: none;
+    }
+
+    .awan::before {
+        content:  "";
+        position: absolute;
+        border-radius: 50%;
+        width: 65px;
+        height: 65px;
+        top: -40px;
+        left: 10px;
+        background: inherit;
+    }
+    .awan::after {
+        content:  "";
+        position: absolute;
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+        top: -60px;
+        left: 28px;
+        background: inherit;
+    }
+ 
+
+    @keyframes wansGeser {
+       from {left: -100px;}
+       to {left: 700px; }
+    }
+
+    @keyframes wansNaikTurun {
+        0%,100%{transform: translateY(0);}
+        50% {transform: translateY(-15px);}
+    }
     </style>
 
 </head>
@@ -300,10 +385,12 @@
 <body> <button id="mulai">▶ HERE</button>
     <audio id="lagu" src="lirik2.mp3"></audio>
 
+    <div id="particles"></div>
     <div id="lirik-wrapper">
+        <div id="particless"></div>
     <div id="lirik"></div>
     <div class="bulan"></div>
-    <div id="particles"></div>
+    <div class="awan"></div>
     <div class="bumi">
         <div class="ring"></div>
     </div>
@@ -313,15 +400,15 @@
 
         const barisLirik = [
             "Bahagia ku bisa bertemu kamu......",
-            "Kau menata kembalii haatiikuu.......",
-            "Banyak orang yang datang padakuu....",
+            "Kau menata kembalii hatiku.......",
+            "Banyak orang yang datang padaku....",
             "Namun, belum ada yang sepertimu....",
             "Kauberi rasa nyaman diriku....",
             "Sungguh, ku suka bersamamu......",
             " Ingin ku menemanimu s'lamanya....."
         ];
 
-        const jeda = [3910, 4550, 4450, 3900, 3900, 3930, 5000];
+        const jeda = [3900, 4500, 4400, 3850, 3900, 3930, 5000];
 
         const kecepatanHuruf = [390, 430, 350, 385, 305, 345, 70];
 
@@ -343,6 +430,7 @@
             lirik.classList.add("hidden");
             document.querySelector(".bumi").classList.remove("show");
             document.querySelector(".bulan").classList.remove("show");
+            document.querySelector(".awan").classList.remove("show");
 
             void lirik.offsetWidth;
 
@@ -353,6 +441,10 @@
                 lirik.classList.add("visible");
                 document.querySelector(".bumi").classList.add("show");
                 document.querySelector(".bulan").classList.add("show");
+                setTimeout(() => {
+                document.querySelector(".awan").classList.add("show");
+                }, 600);
+
 
 
                 let next = index;
@@ -361,6 +453,9 @@
                 setTimeout(tampilBaris, jeda[next] || 1000);
             }, 400);
         }
+
+        const particleBoxLirik = document.getElementById("particless");
+        const particleBoxWeb = document.getElementById("particles");
 
         const particleBox = document.getElementById("particles");
 
@@ -376,19 +471,19 @@
             const x = Math.random() * width;
             const y = Math.random() * height;
 
-            const size = 4 + Math.random() * 10;
+            const size = 21 + Math.random() * 10;
             b.style.width = size + "px";
             b.style.height = size + "px";
 
             b.style.left = x + "px";
             b.style.top = y + "px";
 
-            particleBox.appendChild(b);
+            particleBoxLirik.appendChild(b);
 
             setTimeout(() => b.remove(), 1650);
         }
 
-        setInterval(buatBintang, 270);
+        setInterval(buatBintang, 400);
 
         function spawnconfetti() {
             const colors = [
@@ -429,9 +524,28 @@
 
         }
         }
+
+        function bintang() {
+           if (lirik.textContent.trim() === "") return;
+            const b = document.createElement("div")
+            b.classList.add("bintang");
+
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+
+            const size = 5 + Math.random() * 20;
+            b.style.width = size + "px";
+            b.style.height = size + "px";
+
+            b.style.left = x + "px";
+            b.style.top = y + "px";
+
+            particleBoxWeb.appendChild(b);
+
+            setTimeout(() => b.remove(), 1650);
+        }
+        setInterval(bintang, 250);
     </script>
 </body>
 
-
 </html>
-
